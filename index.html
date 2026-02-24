@@ -428,22 +428,22 @@ const SurvivorLeague = () => {
             weeklyScores: makeEmptyWeekScores(),
             weeklyCheckboxStates: makeEmptyCheckboxStates(),
             draftData: [
-                { player:"Dan",       picks:["","","","","",""], left:0 },
-                { player:"Julie",     picks:["","","","","",""], left:0 },
-                { player:"Lindsay",   picks:["","","","","",""], left:0 },
-                { player:"Brett/Emma",picks:["","","","","",""], left:0 },
-                { player:"Jack",      picks:["","","","","",""], left:0 },
-                { player:"Gab",       picks:["","","","","",""], left:0 },
-                { player:"Neil",      picks:["","","","","",""], left:0 },
-                { player:"Jenny",     picks:["","","","","",""], left:0 },
-                { player:"David",     picks:["","","","","",""], left:0 },
-                { player:"Sue",       picks:["","","","","",""], left:0 },
-                { player:"Ryan",      picks:["","","","","",""], left:0 },
-                { player:"Jason",     picks:["","","","","",""], left:0 },
-                { player:"Alex",      picks:["","","","","",""], left:0 },
-                { player:"Debbie",    picks:["","","","","",""], left:0 },
-                { player:"Jenn",      picks:["","","","","",""], left:0 },
-                { player:"Mel",       picks:["","","","","",""], left:0 },
+                { player:"Dan",       picks:["","","","","","","",""], left:0 },
+                { player:"Julie",     picks:["","","","","","","",""], left:0 },
+                { player:"Lindsay",   picks:["","","","","","","",""], left:0 },
+                { player:"Brett/Emma",picks:["","","","","","","",""], left:0 },
+                { player:"Jack",      picks:["","","","","","","",""], left:0 },
+                { player:"Gab",       picks:["","","","","","","",""], left:0 },
+                { player:"Neil",      picks:["","","","","","","",""], left:0 },
+                { player:"Jenny",     picks:["","","","","","","",""], left:0 },
+                { player:"David",     picks:["","","","","","","",""], left:0 },
+                { player:"Sue",       picks:["","","","","","","",""], left:0 },
+                { player:"Ryan",      picks:["","","","","","","",""], left:0 },
+                { player:"Jason",     picks:["","","","","","","",""], left:0 },
+                { player:"Alex",      picks:["","","","","","","",""], left:0 },
+                { player:"Debbie",    picks:["","","","","","","",""], left:0 },
+                { player:"Jenn",      picks:["","","","","","","",""], left:0 },
+                { player:"Mel",       picks:["","","","","","","",""], left:0 },
             ],
             attendanceData: {
                 "Dan":[],"Julie":[],"Lindsay":[],"Brett/Emma":[],"Jack":[],
@@ -530,7 +530,7 @@ const SurvivorLeague = () => {
             </div>
 
             <p className="welcome-intro">
-                Welcome back, survivors. Season 50 is a milestone — and so is this group. Every single one of you has played before, which means no rookie excuses this time. You know the rules, you know the stakes, and you know how to lose gracefully. Let's go.
+                The milestone season is here. 24 fan favorites, one island, and a league full of people with absolutely no excuse for a bad draft. Welcome back.
             </p>
 
             <div className="w-section">
@@ -551,8 +551,8 @@ const SurvivorLeague = () => {
                 <div className="w-card">
                     <ul className="info-list">
                         <li>Snake draft held <strong>after the first episode airs</strong> — watch it before you draft!</li>
-                        <li>Each manager drafts <strong>6 Survivor contestants</strong></li>
-                        <li>Any contestant can be drafted by a <strong>maximum of 7 different people</strong></li>
+                        <li>Each manager drafts <strong>8 Survivor contestants</strong></li>
+                        <li>Any contestant can be drafted by a <strong>maximum of 6 different people</strong></li>
                         <li>24-person expanded cast this season — do your research, veterans! 😤</li>
                     </ul>
                     <a className="doodle-link" href="https://doodle.com/group-poll/participate/eZGmKK2a" target="_blank">
@@ -685,7 +685,7 @@ const SurvivorLeague = () => {
                             <th className={`sortable ${draftSortConfig.key==='left'?`sorted-${draftSortConfig.direction}`:''}`} onClick={()=>handleDraftSort('left')}>Left</th>
                             <th className={`sortable ${draftSortConfig.key==='player'?`sorted-${draftSortConfig.direction}`:''}`} onClick={()=>handleDraftSort('player')}>Player</th>
                             <th className={`sortable ${draftSortConfig.key==='points'?`sorted-${draftSortConfig.direction}`:''}`} onClick={()=>handleDraftSort('points')}>Total Pts</th>
-                            <th>Pick 1</th><th>Pick 2</th><th>Pick 3</th><th>Pick 4</th><th>Pick 5</th><th>Pick 6</th>
+                            <th>Pick 1</th><th>Pick 2</th><th>Pick 3</th><th>Pick 4</th><th>Pick 5</th><th>Pick 6</th><th>Pick 7</th><th>Pick 8</th>
                         </tr></thead>
                         <tbody>
                             {sortedDraft.map((entry, idx) => {
