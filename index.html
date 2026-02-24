@@ -981,9 +981,12 @@ const SurvivorLeague = () => {
     // ─── RENDER ───────────────────────────────────────────────────
     return (
         <div className="app-container">
-            <div className="header">
-                <h1>🔥 SURVIVOR 50 🔥</h1>
-                <div className="subtitle">ALL VETERANS FANTASY LEAGUE</div>
+            <div style={{textAlign:'center',padding:'36px 20px 28px',marginBottom:'10px'}}>
+                <span style={{fontSize:'52px',display:'block',marginBottom:'10px',animation:'torchFlicker 2.5s ease-in-out infinite alternate'}}>🔥</span>
+                <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'11px',letterSpacing:'5px',color:'#D4A017',marginBottom:'6px',opacity:.8}}>FANTASY LEAGUE · ALL VETERANS</div>
+                <div style={{fontFamily:"'Cinzel',serif",fontSize:'clamp(48px,10vw,80px)',fontWeight:700,lineHeight:.93,background:'linear-gradient(135deg,#D4A017 0%,#FF4500 50%,#FF8C00 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text',marginBottom:'8px'}}>SURVIVOR<br/>50</div>
+                <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'16px',letterSpacing:'4px',color:'#F5E6C8',opacity:.65}}>THE MILESTONE SEASON</div>
+                <div style={{width:'80px',height:'2px',background:'linear-gradient(90deg,transparent,#D4A017,transparent)',margin:'18px auto 0'}}></div>
             </div>
             <div className="navigation">
                 <button className={`nav-button ${activeView==='welcome'?'active':''}`} onClick={()=>setActiveView('welcome')}>🏠 Welcome</button>
