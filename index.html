@@ -549,7 +549,8 @@ const SurvivorLeague = () => {
                         <div className="prize-item"><div className="prize-place">2nd Place</div><div className="prize-amt silver">$100</div></div>
                         <div className="prize-item"><div className="prize-place">3rd Place</div><div className="prize-amt bronze">$50</div></div>
                     </div>
-                    <p className="buy-in-note">$25 buy-in · Venmo <strong>@Neil-Edwards17</strong> to lock in your spot · $450 base pool</p>
+                    <p className="buy-in-note">$25 buy-in · Venmo <strong>@Neil-Edwards17</strong> to lock in your spot</p>
+                    <p className="buy-in-note" style={{marginTop:'8px',color:'rgba(255,140,0,.75)',fontStyle:'italic'}}>* Prize pool subject to change based on final number of players</p>
                 </div>
             </div>
 
@@ -611,14 +612,9 @@ const SurvivorLeague = () => {
                 </div>
             </div>
 
-            <button className="enter-btn" onClick={() => setActiveView('leaderboard')}>
-                Enter the Tracker →
-            </button>
-
             <div className="welcome-footer">
                 <span>🪱🔥</span>
                 <p>Season 50 · All Veterans · May the best team win</p>
-                <small>* Prize pool subject to change based on final number of participants.</small>
             </div>
         </div>
     );
@@ -991,14 +987,6 @@ const SurvivorLeague = () => {
     };
 
     // ─── RENDER ───────────────────────────────────────────────────
-    if (activeView === 'welcome') {
-        return (
-            <div className="app-container">
-                {renderWelcome()}
-            </div>
-        );
-    }
-
     return (
         <div className="app-container">
             <div className="header">
@@ -1006,7 +994,7 @@ const SurvivorLeague = () => {
                 <div className="subtitle">ALL VETERANS FANTASY LEAGUE</div>
             </div>
             <div className="navigation">
-                <button className="nav-button" onClick={()=>setActiveView('welcome')}>🏠 Welcome</button>
+                <button className={`nav-button ${activeView==='welcome'?'active':''}`} onClick={()=>setActiveView('welcome')}>🏠 Welcome</button>
                 <button className={`nav-button ${activeView==='leaderboard'?'active':''}`} onClick={()=>setActiveView('leaderboard')}>🏆 Leaderboard</button>
                 <button className={`nav-button ${activeView==='draft'?'active':''}`} onClick={()=>setActiveView('draft')}>📋 Draft Board</button>
                 <button className={`nav-button ${activeView==='contestants'?'active':''}`} onClick={()=>setActiveView('contestants')}>🌴 Contestants</button>
@@ -1015,6 +1003,7 @@ const SurvivorLeague = () => {
                 <button className={`nav-button ${activeView==='attendance'?'active':''}`} onClick={()=>setActiveView('attendance')}>📅 Attendance</button>
                 <button className={`nav-button ${activeView==='winners'?'active':''}`} onClick={()=>setActiveView('winners')}>👑 Winner Circles</button>
             </div>
+            {activeView==='welcome'       && renderWelcome()}
             {activeView==='leaderboard'   && renderLeaderboard()}
             {activeView==='draft'         && renderDraftBoard()}
             {activeView==='contestants'   && renderContestants()}
