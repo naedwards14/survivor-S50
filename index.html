@@ -471,22 +471,25 @@ const SurvivorLeague = () => {
                 ].map(n=>[n,{}]))]))
             },
             draftData: [
-                { player:"Dan",       picks:["","","","","","","",""], left:0 },
-                { player:"Julie",     picks:["","","","","","","",""], left:0 },
-                { player:"Lindsay",   picks:["","","","","","","",""], left:0 },
-                { player:"Brett/Emma",picks:["","","","","","","",""], left:0 },
-                { player:"Jack",      picks:["","","","","","","",""], left:0 },
-                { player:"Gab",       picks:["","","","","","","",""], left:0 },
-                { player:"Neil",      picks:["","","","","","","",""], left:0 },
-                { player:"Jenny",     picks:["","","","","","","",""], left:0 },
-                { player:"David",     picks:["","","","","","","",""], left:0 },
-                { player:"Sue",       picks:["","","","","","","",""], left:0 },
-                { player:"Ryan",      picks:["","","","","","","",""], left:0 },
-                { player:"Jason",     picks:["","","","","","","",""], left:0 },
-                { player:"Alex",      picks:["","","","","","","",""], left:0 },
-                { player:"Debbie",    picks:["","","","","","","",""], left:0 },
-                { player:"Jenn",      picks:["","","","","","","",""], left:0 },
-                { player:"Mel",       picks:["","","","","","","",""], left:0 },
+                { player:"Mel",          picks:["","","","","",""], left:0 },
+                { player:"Jenny",        picks:["","","","","",""], left:0 },
+                { player:"Shannon/Tyler",picks:["","","","","",""], left:0 },
+                { player:"Dale",         picks:["","","","","",""], left:0 },
+                { player:"Jenn",         picks:["","","","","",""], left:0 },
+                { player:"Neil",         picks:["","","","","",""], left:0 },
+                { player:"Dan",          picks:["","","","","",""], left:0 },
+                { player:"Julie",        picks:["","","","","",""], left:0 },
+                { player:"Alex",         picks:["","","","","",""], left:0 },
+                { player:"Gab",          picks:["","","","","",""], left:0 },
+                { player:"Lindsay",      picks:["","","","","",""], left:0 },
+                { player:"Jack",         picks:["","","","","",""], left:0 },
+                { player:"Ryan",         picks:["","","","","",""], left:0 },
+                { player:"Brett/Emma",   picks:["","","","","",""], left:0 },
+                { player:"Debbie",       picks:["","","","","",""], left:0 },
+                { player:"David",        picks:["","","","","",""], left:0 },
+                { player:"Jason",        picks:["","","","","",""], left:0 },
+                { player:"Charlie",      picks:["","","","","",""], left:0 },
+                { player:"Sue",          picks:["","","","","",""], left:0 },
             ],
             attendanceData: {
                 "Dan":[],"Julie":[],"Lindsay":[],"Brett/Emma":[],"Jack":[],
@@ -597,7 +600,7 @@ const SurvivorLeague = () => {
                 <div className="w-card">
                     <ul className="info-list">
                         <li>Snake draft held <strong>after the first episode airs</strong> — watch it before you draft!</li>
-                        <li>Each manager drafts <strong>8 Survivor contestants</strong></li>
+                        <li>Each manager drafts <strong>6 Survivor contestants</strong></li>
                         <li>Any contestant can be drafted by a <strong>maximum of 6 different people</strong></li>
                         <li>24-person expanded cast this season — do your research, veterans! 😤</li>
                     </ul>
@@ -731,7 +734,7 @@ const SurvivorLeague = () => {
                             <th className={`sortable ${draftSortConfig.key==='left'?`sorted-${draftSortConfig.direction}`:''}`} onClick={()=>handleDraftSort('left')}>Left</th>
                             <th className={`sortable ${draftSortConfig.key==='player'?`sorted-${draftSortConfig.direction}`:''}`} onClick={()=>handleDraftSort('player')}>Player</th>
                             <th className={`sortable ${draftSortConfig.key==='points'?`sorted-${draftSortConfig.direction}`:''}`} onClick={()=>handleDraftSort('points')}>Total Pts</th>
-                            <th>Pick 1</th><th>Pick 2</th><th>Pick 3</th><th>Pick 4</th><th>Pick 5</th><th>Pick 6</th><th>Pick 7</th><th>Pick 8</th>
+                            <th>Pick 1</th><th>Pick 2</th><th>Pick 3</th><th>Pick 4</th><th>Pick 5</th><th>Pick 6</th><th></th>
                         </tr></thead>
                         <tbody>
                             {sortedDraft.map((entry, idx) => {
