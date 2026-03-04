@@ -386,7 +386,7 @@ const SurvivorLeague = () => {
     const [draftSortConfig, setDraftSortConfig] = useState({ key: 'left', direction: 'desc' });
 
     const getInitialData = () => {
-        const DATA_VERSION = 3; // Kyle med evac added
+        const DATA_VERSION = 8; // Draft picks + Episode 1 scores
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
