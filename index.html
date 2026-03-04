@@ -386,7 +386,7 @@ const SurvivorLeague = () => {
     const [draftSortConfig, setDraftSortConfig] = useState({ key: 'left', direction: 'desc' });
 
     const getInitialData = () => {
-        const DATA_VERSION = 10; // Draft picks + Episode 1 scores
+        const DATA_VERSION = 11; // Draft picks + Episode 1 scores
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -665,7 +665,7 @@ const SurvivorLeague = () => {
     const renderLeaderboard = () => (
         <div className="content-section">
             <h2 className="section-title">🏆 Current Standings 🏆</h2>
-            <div className="info-banner">Draft pending — standings will populate once picks are entered. Selfie & survey points shown.</div>
+            <div className="info-banner">📸 Send a selfie watching each episode for <strong>+2 pts</strong> &nbsp;·&nbsp; 📋 Submit your weekly winner prediction survey for bonus points</div>
             <div className="leaderboard">
                 {leaderboard.map((entry, index) => {
                     const total = leaderboard.length;
@@ -728,7 +728,7 @@ const SurvivorLeague = () => {
         return (
             <div className="content-section">
                 <h2 className="section-title">📋 Draft Board 📋</h2>
-                <div className="info-banner">Draft picks will be entered after the snake draft following Episode 1.</div>
+                
                 <div className="draft-board">
                     <table className="draft-table">
                         <thead><tr>
