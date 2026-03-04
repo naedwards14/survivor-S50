@@ -386,7 +386,7 @@ const SurvivorLeague = () => {
     const [draftSortConfig, setDraftSortConfig] = useState({ key: 'left', direction: 'desc' });
 
     const getInitialData = () => {
-        const DATA_VERSION = 8; // Draft picks + Episode 1 scores
+        const DATA_VERSION = 9; // Draft picks + Episode 1 scores
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -492,9 +492,10 @@ const SurvivorLeague = () => {
                 { player:"Sue",          picks:["Dee","Joe H","Savannah","Colby","Kamilla","Mike"], left:0 },
             ],
             attendanceData: {
-                "Dan":[],"Julie":[],"Lindsay":[],"Brett/Emma":[],"Jack":[],
-                "Gab":[],"Neil":[],"Jenny":[],"David":[],"Sue":[],
-                "Ryan":[],"Jason":[],"Alex":[],"Debbie":[],"Jenn":[],"Mel":[]
+                "Mel":[2],"Jenny":[2],"Shannon/Tyler":[2],"Dale":[2],"Jenn":[2],
+                "Neil":[2],"Dan":[2],"Julie":[2],"Alex":[2],"Gab":[2],
+                "Lindsay":[2],"Jack":[2],"Ryan":[2],"Brett/Emma":[2],"Debbie":[2],
+                "David":[2],"Jason":[2],"Charlie":[2],"Sue":[2]
             },
             eliminationTimeline: [
                 { week:1, contestant:"Jenna", reason:"Voted out unanimously at Tribal Council. Cila lost the immunity challenge largely due to Cirie struggling with the monkey fist throw. Jenna had been gunning for Cirie before her sneakers were even sandy, which pushed Cirie and Ozzy to target her instead. The vote was unanimous." },
