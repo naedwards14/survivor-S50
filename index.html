@@ -386,7 +386,7 @@ const SurvivorLeague = () => {
     const [draftSortConfig, setDraftSortConfig] = useState({ key: 'left', direction: 'desc' });
 
     const getInitialData = () => {
-        const DATA_VERSION = 9; // Draft picks + Episode 1 scores
+        const DATA_VERSION = 10; // Draft picks + Episode 1 scores
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -427,7 +427,7 @@ const SurvivorLeague = () => {
             ],
             weeklyScores: {
                 1: {
-                    "Rick":0.75,"Jenna":-0.5,"Cirie":0.75,"Emily":0.75,"Christian":0.75,"Joe H":0.75,"Savannah":1.25,"Ozzy":1.25,
+                    "Rick":0.75,"Jenna":-0.5,"Cirie":0.75,"Emily":0.75,"Christian":0.75,"Joe H":0.75,"Savannah":1.25,"Ozzy":2.25,
                     "Tiffany":1,"Chrissy":1,"Kamilla":1,"Dee":1,"Coach":1.5,"Mike":1.25,"Jonathan":1,"Charlie":1,
                     "Angelina":1.5,"Aubry":1.5,"Q":1.5,"Colby":1.5,"Kyle":1.5,"Stephenie":1.5,"Genevieve":2,"Rizo":1.5
                 },
@@ -446,7 +446,7 @@ const SurvivorLeague = () => {
                     "Christian": { premerge_survive:true },
                     "Joe H":     { premerge_survive:true },
                     "Savannah":  { premerge_survive:true, advantage_held:true },
-                    "Ozzy":      { premerge_survive:true, advantage_held:true },
+                    "Ozzy":      { premerge_survive:true, advantage_held:true, has_idol:true },
                     "Tiffany":   { team_immunity:true },
                     "Chrissy":   { team_immunity:true },
                     "Kamilla":   { team_immunity:true },
