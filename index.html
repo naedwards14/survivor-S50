@@ -387,7 +387,7 @@ const SurvivorLeague = () => {
     const [draftSortConfig, setDraftSortConfig] = useState({ key: 'left', direction: 'desc' });
 
     const getInitialData = () => {
-        const DATA_VERSION = 18; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 19; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -524,8 +524,8 @@ const SurvivorLeague = () => {
                 { week:2, contestant:"Savannah", reason:"Voted out unanimously by Cila. Despite winning the team reward, her Block-a-Vote advantage made her a threat. Cirie orchestrated the vote, steering the tribe away from Joe and Ozzy and onto Savannah, who had been targeting Cirie since day one." },
                 { week:3, contestant:"Q", reason:"Voted out by the new Vatu tribe after a tribe swap reshuffled all three tribes. Q's lost vote from the journey hurt his position. Mike pushed to eliminate him as the more dominant threat. Vatu lost the immunity challenge with Christian calling poorly." },
                 { week:4, contestant:"Mike", reason:"Voted out at Kalo's Tribal Council. Used shot in the dark but it didn't save him. Kalo lost the immunity challenge, and Mike was sent home despite having been a strong strategic presence." },
-                { week:5, contestant:"Charlie", reason:"Voted out at Tribal Council. A double elimination episode saw two tribes go to tribal. Charlie's strategic moves caught up with him." },
-                { week:5, contestant:"Angelina", reason:"Voted out at Tribal Council in a double elimination week. Used shot in the dark but was sent home regardless." },
+                { week:5, contestant:"Charlie", reason:"Voted out at Cila's Tribal Council. Charlie's obsession with targeting Rizo over the Savannah betrayal backfired when Rizo flipped the tribe by bonding with Dee, Cirie, and Kamilla. Dee delivered the brutal verdict: 'I thought Charlie was the most dangerous player here — but I actually think he's the dumbest.' First torch snuffing of Charlie's Survivor career." },
+                { week:5, contestant:"Angelina", reason:"Voted out unanimously by Vatu. Despite losing her closest ally Mike the week prior, Angelina barely registered in the edit down the stretch. Christian surrendered his Shot in the Dark to Ozzy as a show of trust, and the tribe united to send Angelina home. She exited in full-circle fashion — leaving her jacket behind for the tribe." },
             ],
             winnerCircles: [
                 { season:49, first:"Dan",   second:"Alex",    third:"Jenny" },
