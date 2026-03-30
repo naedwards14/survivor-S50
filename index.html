@@ -387,7 +387,7 @@ const SurvivorLeague = () => {
     const [draftSortConfig, setDraftSortConfig] = useState({ key: 'left', direction: 'desc' });
 
     const getInitialData = () => {
-        const DATA_VERSION = 19; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 20; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -732,10 +732,18 @@ const SurvivorLeague = () => {
             if (draftSortConfig.key===key && draftSortConfig.direction==='desc') dir='asc';
             setDraftSortConfig({key,direction:dir});
         };
+        // compute live "left" count for each manager
+        const getLeft = (entry) => entry.picks.filter(p => {
+            if (!p) return false;
+            const c = data.contestants.find(x => x.name === p);
+            return c && !c.eliminated;
+        }).length;
+
         const sortedDraft = [...data.draftData].sort((a,b)=>{
             if (draftSortConfig.key==='player') return draftSortConfig.direction==='asc'?a.player.localeCompare(b.player):b.player.localeCompare(a.player);
             if (draftSortConfig.key==='left') {
-                if (a.left!==b.left) return draftSortConfig.direction==='asc'?a.left-b.left:b.left-a.left;
+                const aL=getLeft(a), bL=getLeft(b);
+                if (aL!==bL) return draftSortConfig.direction==='asc'?aL-bL:bL-aL;
                 let ap=0,bp=0;
                 a.picks.forEach(p=>{if(p) ap+=contestantTotals[p]||0;});
                 b.picks.forEach(p=>{if(p) bp+=contestantTotals[p]||0;});
@@ -772,7 +780,7 @@ const SurvivorLeague = () => {
                                 const att=data.attendanceData[entry.player]?data.attendanceData[entry.player].reduce((s,v)=>s+v,0):0;
                                 return (
                                     <tr key={idx}>
-                                        <td style={{fontWeight:'bold',fontSize:'1.1em'}}>{entry.left}</td>
+                                        <td style={{fontWeight:'bold',fontSize:'1.1em'}}>{getLeft(entry)}</td>
                                         <td style={{fontWeight:'bold',textAlign:'left',paddingLeft:'15px'}}>{entry.player}</td>
                                         <td style={{fontWeight:'bold',color:'#4ecca3',fontSize:'1.1em'}}>{(cp+att).toFixed(2)}</td>
                                         {entry.picks.map((pick,pi)=>{
