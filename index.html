@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 25; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 27; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -405,7 +405,7 @@ const SurvivorLeague = () => {
                 { name:"Jenna",     tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:1,    advantages:[] },
                 { name:"Cirie",     tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Extra Vote"] },
                 { name:"Emily",     tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Christian", tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
+                { name:"Christian", tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
                 { name:"Joe H",     tribe:"Kalo",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
                 { name:"Savannah",  tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:2,    advantages:[] },
                 { name:"Ozzy",      tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
@@ -420,13 +420,13 @@ const SurvivorLeague = () => {
                 { name:"Jonathan",  tribe:"Cila",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
                 // ── VATU (post-swap) ──
                 { name:"Angelina",  tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:5,    advantages:[] },
-                { name:"Aubry",     tribe:"Kalo",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Hidden Idol"] },
+                { name:"Aubry",     tribe:"Kalo",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
                 { name:"Q",         tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:3,    advantages:[] },
                 { name:"Colby",     tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:6,    advantages:[] },
                 { name:"Kyle",      tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:1,    advantages:[] },
                 { name:"Stephenie", tribe:"Vatu",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:[] },
                 { name:"Genevieve", tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:6,    advantages:[] },
-                { name:"Rizo",      tribe:"Cila",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Hidden Idol"] },
+                { name:"Rizo",      tribe:"Cila",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
             ],
             weeklyScores: {
                 1: {
