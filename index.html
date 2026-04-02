@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 23; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 24; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -732,8 +732,8 @@ const SurvivorLeague = () => {
                                 <div className="total-points">{entry.totalPoints.toFixed(2)}</div>
                             </div>
                             {isExpanded && (
-                                <div style={{background:'rgba(0,0,0,.25)',borderRadius:'0 0 12px 12px',padding:'14px 20px',marginBottom:'8px',marginTop:'-8px'}}>
-                                    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:'10px'}}>
+                                <div style={{background:'rgba(0,0,0,.25)',borderRadius:'0 0 12px 12px',padding:'12px 0 14px',marginBottom:'8px',marginTop:'-8px'}}>
+                                    <div style={{display:'grid',gridTemplateColumns:'repeat(6,1fr)',gap:'8px',padding:'0 12px'}}>
                                         {picks.map((pick, pi) => {
                                             const c = data.contestants.find(x => x.name === pick);
                                             const pts = contestantTotals[pick] || 0;
