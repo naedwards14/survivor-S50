@@ -386,9 +386,10 @@ const SurvivorLeague = () => {
     const [selectedWeek, setSelectedWeek] = useState(1);
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'desc' });
     const [draftSortConfig, setDraftSortConfig] = useState({ key: 'left', direction: 'desc' });
+    const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 21; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 22; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -703,21 +704,57 @@ const SurvivorLeague = () => {
             <div className="leaderboard">
                 {leaderboard.map((entry, index) => {
                     const total = leaderboard.length;
+                    const isExpanded = expandedPlayer === entry.player;
                     let tierClass = index===0?'rank-1':index===1?'rank-2':index===2?'rank-3':
                         index<=Math.ceil(total*.25)?'tier-teal':index<=Math.ceil(total*.5)?'tier-blue':
                         index<=Math.ceil(total*.75)?'tier-orange':'tier-red';
+                    // get draft picks for this player
+                    const draftEntry = data.draftData.find(d => d.player === entry.player);
+                    const picks = draftEntry ? draftEntry.picks.filter(p => p) : [];
                     return (
-                        <div key={entry.player} className={`leaderboard-item ${tierClass}`}>
-                            <div className="rank">{index===0?'🥇':index===1?'🥈':index===2?'🥉':`#${index+1}`}</div>
-                            <div>
-                                <div className="player-name">{entry.player}</div>
-                                <div className="player-stats">
-                                    <span>Contestants: {entry.contestantPoints.toFixed(2)} pts</span>
-                                    <span>Attendance: {entry.attendancePoints} pts</span>
-                                    <span>Survey: {entry.surveyPoints} pts</span>
+                        <div key={entry.player}>
+                            <div
+                                className={`leaderboard-item ${tierClass}`}
+                                onClick={() => setExpandedPlayer(isExpanded ? null : entry.player)}
+                                style={{cursor:'pointer'}}
+                            >
+                                <div className="rank">{index===0?'🥇':index===1?'🥈':index===2?'🥉':`#${index+1}`}</div>
+                                <div>
+                                    <div className="player-name">{entry.player} <span style={{fontSize:'.75em',opacity:.5,marginLeft:'6px'}}>{isExpanded?'▲':'▼'}</span></div>
+                                    <div className="player-stats">
+                                        <span>Contestants: {entry.contestantPoints.toFixed(2)} pts</span>
+                                        <span>Attendance: {entry.attendancePoints} pts</span>
+                                        <span>Survey: {entry.surveyPoints} pts</span>
+                                    </div>
                                 </div>
+                                <div className="total-points">{entry.totalPoints.toFixed(2)}</div>
                             </div>
-                            <div className="total-points">{entry.totalPoints.toFixed(2)}</div>
+                            {isExpanded && (
+                                <div style={{background:'rgba(0,0,0,.25)',borderRadius:'0 0 12px 12px',padding:'14px 20px',marginBottom:'8px',marginTop:'-8px'}}>
+                                    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:'10px'}}>
+                                        {picks.map((pick, pi) => {
+                                            const c = data.contestants.find(x => x.name === pick);
+                                            const pts = contestantTotals[pick] || 0;
+                                            const isElim = c?.eliminated || false;
+                                            const tribe = c?.originalTribe || c?.tribe || '';
+                                            const tc = getTribeCss(tribe);
+                                            return (
+                                                <div key={pi} style={{
+                                                    background:'rgba(255,255,255,.07)',
+                                                    borderRadius:'10px',
+                                                    padding:'10px 14px',
+                                                    opacity: isElim ? 0.5 : 1,
+                                                    borderLeft: `4px solid ${tribe==='Cila'?'#D4521E':tribe==='Kalo'?'#2A9D8F':tribe==='Vatu'?'#C2185B':tribe==='Merged'?'#D4A017':'#555'}`
+                                                }}>
+                                                    <div style={{fontFamily:"'Cinzel',serif",fontSize:'.9em',fontWeight:'bold',color: isElim?'#888':'#fff'}}>{pick} {isElim ? '💀' : ''}</div>
+                                                    <div style={{fontSize:'.75em',color:'rgba(255,255,255,.4)',marginBottom:'4px'}}>{tribe}</div>
+                                                    <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.4em',color: isElim?'#888':pts>0?'#4ecca3':'#e74c3c'}}>{pts.toFixed(2)} pts</div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     );
                 })}
