@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 22; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 23; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -400,31 +400,33 @@ const SurvivorLeague = () => {
 
         return {
             contestants: [
-                // ── MERGED ──
-                { name:"Rick",      tribe:"Merged", originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Jenna",     tribe:"Voted Out", originalTribe:"Cila", eliminated:true, eliminatedWeek:1, advantages:[] },
-                { name:"Cirie",     tribe:"Merged", originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Extra Vote"] },
-                { name:"Emily",     tribe:"Merged", originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Christian", tribe:"Merged", originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
-                { name:"Joe H",     tribe:"Merged", originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Savannah",  tribe:"Voted Out", originalTribe:"Cila", eliminated:true, eliminatedWeek:2, advantages:[] },
-                { name:"Ozzy",      tribe:"Merged", originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
-                { name:"Charlie",   tribe:"Voted Out", originalTribe:"Kalo", eliminated:true, eliminatedWeek:5, advantages:[] },
-                { name:"Tiffany",   tribe:"Merged", originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Chrissy",   tribe:"Merged", originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Kamilla",   tribe:"Voted Out", originalTribe:"Kalo", eliminated:true, eliminatedWeek:6, advantages:[] },
-                { name:"Dee",       tribe:"Merged", originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Coach",     tribe:"Merged", originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Mike",      tribe:"Voted Out", originalTribe:"Kalo", eliminated:true, eliminatedWeek:4, advantages:[] },
-                { name:"Jonathan",  tribe:"Merged", originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Angelina",  tribe:"Voted Out", originalTribe:"Vatu", eliminated:true, eliminatedWeek:5, advantages:[] },
-                { name:"Aubry",     tribe:"Merged", originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Hidden Idol"] },
-                { name:"Q",         tribe:"Voted Out", originalTribe:"Vatu", eliminated:true, eliminatedWeek:3, advantages:[] },
-                { name:"Colby",     tribe:"Voted Out", originalTribe:"Vatu", eliminated:true, eliminatedWeek:6, advantages:[] },
-                { name:"Kyle",      tribe:"Voted Out", originalTribe:"Vatu", eliminated:true, eliminatedWeek:1, advantages:[] },
-                { name:"Stephenie", tribe:"Merged", originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:[] },
-                { name:"Genevieve", tribe:"Voted Out", originalTribe:"Vatu", eliminated:true, eliminatedWeek:6, advantages:[] },
-                { name:"Rizo",      tribe:"Merged", originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Hidden Idol"] },
+                // ── CILA (post-swap) ──
+                { name:"Rick",      tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Jenna",     tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:1,    advantages:[] },
+                { name:"Cirie",     tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Extra Vote"] },
+                { name:"Emily",     tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Christian", tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
+                { name:"Joe H",     tribe:"Kalo",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Savannah",  tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:2,    advantages:[] },
+                { name:"Ozzy",      tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
+                // ── KALO (post-swap) ──
+                { name:"Charlie",   tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:5,    advantages:[] },
+                { name:"Tiffany",   tribe:"Kalo",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Chrissy",   tribe:"Kalo",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Kamilla",   tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:6,    advantages:[] },
+                { name:"Dee",       tribe:"Cila",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Coach",     tribe:"Kalo",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Mike",      tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:4,    advantages:[] },
+                { name:"Jonathan",  tribe:"Cila",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
+                // ── VATU (post-swap) ──
+                { name:"Angelina",  tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:5,    advantages:[] },
+                { name:"Aubry",     tribe:"Kalo",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Hidden Idol"] },
+                { name:"Q",         tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:3,    advantages:[] },
+                { name:"Colby",     tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:6,    advantages:[] },
+                { name:"Kyle",      tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:1,    advantages:[] },
+                { name:"Stephenie", tribe:"Vatu",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Genevieve", tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:6,    advantages:[] },
+                { name:"Rizo",      tribe:"Cila",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Hidden Idol"] },
             ],
             weeklyScores: {
                 1: {
@@ -445,7 +447,7 @@ const SurvivorLeague = () => {
                 4: {
                     "Rick":0.5,"Jenna":0,"Cirie":0.5,"Emily":0.75,"Christian":1,"Joe H":1,"Savannah":0,"Ozzy":1.75,
                     "Tiffany":1,"Chrissy":1,"Kamilla":0.5,"Dee":0.5,"Coach":1,"Mike":-0.5,"Jonathan":0.5,"Charlie":0.5,
-                    "Angelina":0.75,"Aubry":1,"Q":0,"Colby":0,"Kyle":0,"Stephenie":0.75,"Genevieve":1.5,"Rizo":0.5
+                    "Angelina":0.75,"Aubry":1,"Q":0,"Colby":1,"Kyle":0,"Stephenie":0.75,"Genevieve":1.5,"Rizo":0.5
                 },
                 5: {
                     "Rick":0.75,"Jenna":0,"Cirie":1.25,"Emily":0.75,"Christian":0.75,"Joe H":1,"Savannah":0,"Ozzy":2,
