@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 24; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 25; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -748,9 +748,22 @@ const SurvivorLeague = () => {
                                                     opacity: isElim ? 0.5 : 1,
                                                     borderLeft: `4px solid ${tribe==='Cila'?'#D4521E':tribe==='Kalo'?'#2A9D8F':tribe==='Vatu'?'#C2185B':tribe==='Merged'?'#D4A017':'#555'}`
                                                 }}>
-                                                    <div style={{fontFamily:"'Cinzel',serif",fontSize:'.9em',fontWeight:'bold',color: isElim?'#888':'#fff'}}>{pick} {isElim ? '💀' : ''}</div>
-                                                    <div style={{fontSize:'.75em',color:'rgba(255,255,255,.4)',marginBottom:'4px'}}>{tribe}</div>
-                                                    <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.4em',color: isElim?'#888':pts>0?'#4ecca3':'#e74c3c'}}>{pts.toFixed(2)} pts</div>
+                                                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',gap:'4px'}}>
+                                                        <div style={{fontFamily:"'Cinzel',serif",fontSize:'.9em',fontWeight:'bold',color:isElim?'#888':'#fff'}}>{pick}{isElim?' 💀':''}</div>
+                                                        {!isElim && c?.advantages?.length > 0 && (
+                                                            <div style={{display:'flex',flexDirection:'column',gap:'2px',alignItems:'flex-end'}}>
+                                                                {c.advantages.map((adv,ai)=>{
+                                                                    const isIdol = adv.toLowerCase().includes('idol');
+                                                                    const isVote = adv.toLowerCase().includes('vote');
+                                                                    const icon = isIdol ? '🏺' : isVote ? '🗳️' : '⭐';
+                                                                    const col = isIdol ? '#f39c12' : isVote ? '#9b59b6' : '#3498db';
+                                                                    return <span key={ai} style={{fontSize:'.65em',padding:'1px 5px',borderRadius:'5px',background:col+'33',border:`1px solid ${col}88`,color:col,whiteSpace:'nowrap'}}>{icon} {adv}</span>;
+                                                                })}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div style={{fontSize:'.75em',color:'rgba(255,255,255,.4)',margin:'2px 0 4px'}}>{tribe}</div>
+                                                    <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.4em',color:isElim?'#888':pts>0?'#4ecca3':'#e74c3c'}}>{pts.toFixed(2)} pts</div>
                                                 </div>
                                             );
                                         })}
