@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 28; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 29; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -932,31 +932,48 @@ const SurvivorLeague = () => {
                                     <div style={{padding:'12px 16px',fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.4em',color:c.eliminated?'#888':pts>0?'#4ecca3':'#fff',minWidth:'80px',textAlign:'right'}}>{pts.toFixed(2)} pts</div>
                                 </div>
                                 {isExpanded && (
-                                    <div style={{background:'rgba(0,0,0,.3)',borderRadius:'0 0 12px 12px',padding:'12px 16px',borderTop:`2px solid ${tribeColor}44`}}>
-                                        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(90px,1fr))',gap:'8px'}}>
+                                    <div style={{background:'rgba(0,0,0,.3)',borderRadius:'0 0 12px 12px',padding:'14px 16px',borderTop:`2px solid ${tribeColor}44`}}>
+                                        <div style={{display:'flex',gap:'10px',flexWrap:'wrap'}}>
                                             {Array.from({length:TOTAL_WEEKS},(_,wi)=>{
                                                 const ep=wi+1;
                                                 const epPts=(data.weeklyScores[ep]&&data.weeklyScores[ep][c.name])||0;
                                                 const isElimEp = c.eliminatedWeek===ep;
-                                                const isFuture = !c.eliminated && ep > 6;
+                                                const isFuture = ep > 6;
                                                 if (isFuture) return null;
                                                 if (c.eliminated && ep > c.eliminatedWeek) return null;
+                                                const cbState=(data.weeklyCheckboxStates[ep]&&data.weeklyCheckboxStates[ep][c.name])||{};
+                                                const firedEvents = scoringCategories.filter(cat=>cbState[cat.id]);
                                                 return (
                                                     <div key={ep} style={{
-                                                        background: isElimEp?'rgba(231,76,60,.15)':epPts>0?'rgba(78,204,163,.1)':epPts<0?'rgba(231,76,60,.1)':'rgba(255,255,255,.05)',
-                                                        border: `1px solid ${isElimEp?'#e74c3c44':epPts>0?'#4ecca344':epPts<0?'#e74c3c44':'rgba(255,255,255,.1)'}`,
-                                                        borderRadius:'8px', padding:'8px 10px', textAlign:'center'
+                                                        flex:'1 1 140px',
+                                                        background: isElimEp?'rgba(231,76,60,.1)':'rgba(255,255,255,.05)',
+                                                        border:`1px solid ${isElimEp?'#e74c3c44':epPts>0?'rgba(78,204,163,.3)':'rgba(255,255,255,.1)'}`,
+                                                        borderRadius:'10px', padding:'10px 12px', minWidth:'130px'
                                                     }}>
-                                                        <div style={{fontSize:'.7em',color:'rgba(255,255,255,.4)',marginBottom:'3px'}}>Ep {ep}</div>
-                                                        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.2em',color:isElimEp?'#e74c3c':epPts>0?'#4ecca3':epPts<0?'#e74c3c':'#888'}}>
-                                                            {isElimEp?'💀':epPts===0?'—':(epPts>0?'+':'')+epPts.toFixed(2)}
+                                                        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'8px',paddingBottom:'6px',borderBottom:'1px solid rgba(255,255,255,.1)'}}>
+                                                            <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'.95em',letterSpacing:'1px',color:'rgba(255,255,255,.5)'}}>EP {ep}</span>
+                                                            <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.2em',color:isElimEp?'#e74c3c':epPts>0?'#4ecca3':epPts<0?'#e74c3c':'#888'}}>
+                                                                {isElimEp&&epPts===0?'💀':(epPts>0?'+':'')+epPts.toFixed(2)}
+                                                            </span>
                                                         </div>
+                                                        {firedEvents.length>0 ? (
+                                                            <div style={{display:'flex',flexDirection:'column',gap:'3px'}}>
+                                                                {firedEvents.map(cat=>(
+                                                                    <div key={cat.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',gap:'6px'}}>
+                                                                        <span style={{fontSize:'.7em',color:'rgba(255,255,255,.55)',lineHeight:'1.3'}}>{cat.name.replace(' (worth nothing if combined)','').replace(' (not idol)','').replace(' (or successful dice)','')}</span>
+                                                                        <span style={{fontSize:'.75em',fontWeight:'bold',whiteSpace:'nowrap',color:cat.points>0?'#4ecca3':'#e74c3c'}}>{cat.points>0?'+':''}{cat.points}</span>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        ) : (
+                                                            <div style={{fontSize:'.7em',color:'rgba(255,255,255,.25)',fontStyle:'italic'}}>{isElimEp?'Eliminated':'No scoring events'}</div>
+                                                        )}
                                                     </div>
                                                 );
                                             })}
                                         </div>
                                         <div style={{marginTop:'10px',paddingTop:'10px',borderTop:'1px solid rgba(255,255,255,.1)',display:'flex',justifyContent:'flex-end',alignItems:'center',gap:'8px'}}>
-                                            <span style={{fontSize:'.8em',color:'rgba(255,255,255,.4)'}}>Total across all episodes:</span>
+                                            <span style={{fontSize:'.8em',color:'rgba(255,255,255,.4)'}}>Total:</span>
                                             <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.3em',color:'#4ecca3'}}>{pts.toFixed(2)} pts</span>
                                         </div>
                                     </div>
