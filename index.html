@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 27; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 28; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -885,31 +885,82 @@ const SurvivorLeague = () => {
             <div className="content-section">
                 <h2 className="section-title">🌴 All Contestants 🌴</h2>
                 <div className="tribe-legend">
-                    <div className="legend-item">
-                        <div className="legend-color" style={{background:'#D4521E'}}></div>
-                        <span>Cila ({data.contestants.filter(c=>c.originalTribe==='Cila').length})</span>
-                    </div>
-                    <div className="legend-item">
-                        <div className="legend-color" style={{background:'#2A9D8F'}}></div>
-                        <span>Kalo ({data.contestants.filter(c=>c.originalTribe==='Kalo').length})</span>
-                    </div>
-                    <div className="legend-item">
-                        <div className="legend-color" style={{background:'#C2185B'}}></div>
-                        <span>Vatu ({data.contestants.filter(c=>c.originalTribe==='Vatu').length})</span>
-                    </div>
+                    <div className="legend-item"><div className="legend-color" style={{background:'#D4521E'}}></div><span>Cila ({data.contestants.filter(c=>c.originalTribe==='Cila').length})</span></div>
+                    <div className="legend-item"><div className="legend-color" style={{background:'#2A9D8F'}}></div><span>Kalo ({data.contestants.filter(c=>c.originalTribe==='Kalo').length})</span></div>
+                    <div className="legend-item"><div className="legend-color" style={{background:'#C2185B'}}></div><span>Vatu ({data.contestants.filter(c=>c.originalTribe==='Vatu').length})</span></div>
                 </div>
-                <div className="contestant-grid">
+                <div style={{display:'flex',flexDirection:'column',gap:'6px'}}>
                     {sorted.map((c,i)=>{
                         const tc=getTribeCss(c.originalTribe||c.tribe);
                         const pts=contestantTotals[c.name]||0;
+                        const tribeColor = c.originalTribe==='Cila'?'#D4521E':c.originalTribe==='Kalo'?'#2A9D8F':c.originalTribe==='Vatu'?'#C2185B':'#D4A017';
+                        const isExpanded = expandedPlayer === ('contestant_'+c.name);
+                        const epScores = Array.from({length:TOTAL_WEEKS},(_,wi)=>({
+                            ep: wi+1,
+                            pts: (data.weeklyScores[wi+1]&&data.weeklyScores[wi+1][c.name]) || 0
+                        })).filter(e => e.pts !== 0 || (c.eliminatedWeek && e.ep <= c.eliminatedWeek) || (!c.eliminated && e.ep <= 6));
+                        const aimedEps = epScores.filter(e=>e.pts!==0);
                         return (
-                            <div key={i} className={`contestant-card ${tc} ${c.eliminated?'eliminated':''}`}>
-                                <div className="contestant-name">{c.name}</div>
-                                <div className="contestant-tribe" style={{background:getTribeGrad(c.originalTribe||c.tribe)}}>
-                                    {c.eliminated?'Voted Out':c.tribe}
+                            <div key={i}>
+                                <div
+                                    onClick={()=>setExpandedPlayer(isExpanded?null:'contestant_'+c.name)}
+                                    style={{
+                                        display:'grid', gridTemplateColumns:'4px 1fr auto auto',
+                                        alignItems:'center', gap:'0',
+                                        background: c.eliminated?'rgba(255,255,255,.04)':'rgba(255,255,255,.08)',
+                                        borderRadius: isExpanded?'12px 12px 0 0':'12px',
+                                        overflow:'hidden', cursor:'pointer',
+                                        opacity: c.eliminated ? 0.6 : 1,
+                                        transition:'all .2s'
+                                    }}
+                                >
+                                    <div style={{background:tribeColor,alignSelf:'stretch'}}></div>
+                                    <div style={{padding:'12px 16px'}}>
+                                        <div style={{display:'flex',alignItems:'center',gap:'10px'}}>
+                                            <span style={{fontFamily:"'Cinzel',serif",fontWeight:'bold',fontSize:'1em'}}>{c.name}</span>
+                                            {c.eliminated && <span style={{fontSize:'.75em',color:'#e74c3c'}}>💀 Ep {c.eliminatedWeek}</span>}
+                                            {!c.eliminated && c.advantages?.length>0 && c.advantages.map((adv,ai)=>{
+                                                const isIdol=adv.toLowerCase().includes('idol');
+                                                const isVote=adv.toLowerCase().includes('vote');
+                                                const col=isIdol?'#f39c12':'#9b59b6';
+                                                return <span key={ai} style={{fontSize:'.65em',padding:'1px 6px',borderRadius:'5px',background:col+'33',border:`1px solid ${col}88`,color:col}}>{isIdol?'🏺':'🗳️'} {adv}</span>;
+                                            })}
+                                        </div>
+                                        <div style={{fontSize:'.78em',color:'rgba(255,255,255,.4)',marginTop:'2px'}}>{c.originalTribe} · {c.eliminated?'Voted Out':c.tribe}</div>
+                                    </div>
+                                    <div style={{padding:'12px 8px',fontSize:'.75em',color:'rgba(255,255,255,.35)'}}>{isExpanded?'▲':'▼'}</div>
+                                    <div style={{padding:'12px 16px',fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.4em',color:c.eliminated?'#888':pts>0?'#4ecca3':'#fff',minWidth:'80px',textAlign:'right'}}>{pts.toFixed(2)} pts</div>
                                 </div>
-                                <div className="contestant-points">{pts.toFixed(2)} pts</div>
-                                {c.eliminated && <div style={{color:'#e74c3c',fontSize:'.85em',marginTop:'5px'}}>Eliminated Ep {c.eliminatedWeek}</div>}
+                                {isExpanded && (
+                                    <div style={{background:'rgba(0,0,0,.3)',borderRadius:'0 0 12px 12px',padding:'12px 16px',borderTop:`2px solid ${tribeColor}44`}}>
+                                        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(90px,1fr))',gap:'8px'}}>
+                                            {Array.from({length:TOTAL_WEEKS},(_,wi)=>{
+                                                const ep=wi+1;
+                                                const epPts=(data.weeklyScores[ep]&&data.weeklyScores[ep][c.name])||0;
+                                                const isElimEp = c.eliminatedWeek===ep;
+                                                const isFuture = !c.eliminated && ep > 6;
+                                                if (isFuture) return null;
+                                                if (c.eliminated && ep > c.eliminatedWeek) return null;
+                                                return (
+                                                    <div key={ep} style={{
+                                                        background: isElimEp?'rgba(231,76,60,.15)':epPts>0?'rgba(78,204,163,.1)':epPts<0?'rgba(231,76,60,.1)':'rgba(255,255,255,.05)',
+                                                        border: `1px solid ${isElimEp?'#e74c3c44':epPts>0?'#4ecca344':epPts<0?'#e74c3c44':'rgba(255,255,255,.1)'}`,
+                                                        borderRadius:'8px', padding:'8px 10px', textAlign:'center'
+                                                    }}>
+                                                        <div style={{fontSize:'.7em',color:'rgba(255,255,255,.4)',marginBottom:'3px'}}>Ep {ep}</div>
+                                                        <div style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.2em',color:isElimEp?'#e74c3c':epPts>0?'#4ecca3':epPts<0?'#e74c3c':'#888'}}>
+                                                            {isElimEp?'💀':epPts===0?'—':(epPts>0?'+':'')+epPts.toFixed(2)}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        <div style={{marginTop:'10px',paddingTop:'10px',borderTop:'1px solid rgba(255,255,255,.1)',display:'flex',justifyContent:'flex-end',alignItems:'center',gap:'8px'}}>
+                                            <span style={{fontSize:'.8em',color:'rgba(255,255,255,.4)'}}>Total across all episodes:</span>
+                                            <span style={{fontFamily:"'Bebas Neue',sans-serif",fontSize:'1.3em',color:'#4ecca3'}}>{pts.toFixed(2)} pts</span>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}
