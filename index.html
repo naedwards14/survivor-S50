@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 32; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 34; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -462,7 +462,7 @@ const SurvivorLeague = () => {
                 7: {
                     "Rick":2,"Jenna":0,"Cirie":1.5,"Emily":2,"Christian":2,"Joe H":2,"Savannah":0,"Ozzy":5,
                     "Tiffany":1,"Chrissy":1,"Kamilla":0,"Dee":0.5,"Coach":1.25,"Mike":0,"Jonathan":1,"Charlie":0,
-                    "Angelina":0,"Aubry":1,"Q":0,"Colby":0,"Kyle":0,"Stephenie":2.75,"Genevieve":0,"Rizo":1.75
+                    "Angelina":0,"Aubry":1,"Q":0,"Colby":0,"Kyle":0,"Stephenie":2.75,"Genevieve":0,"Rizo":2.75
                 },
                 ...Object.fromEntries(Array.from({length:8},(_,i)=>[i+8, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
@@ -651,7 +651,7 @@ const SurvivorLeague = () => {
                     "Kyle":      {},
                     "Stephenie": { team_reward:true, advantage_held:true, postmerge_survive:true, title_quote:true },
                     "Genevieve": {},
-                    "Rizo":      { idol_tribal:true, premerge_survive:true },
+                    "Rizo":      { idol_tribal:true, premerge_survive:true, postmerge_survive:true },
                 },
                 ...Object.fromEntries(Array.from({length:8},(_,i)=>[i+8, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
@@ -1031,6 +1031,7 @@ const SurvivorLeague = () => {
 
     // ─── CONTESTANTS ──────────────────────────────────────────────
     const renderContestants = () => {
+        const episodesAired = Object.values(data.weeklyScores).filter(w=>Object.values(w).some(v=>v!==0)).length || 0;
         const sorted = [...sortedContestants].sort((a,b)=>{
             if (!a.eliminated && b.eliminated) return -1;
             if (a.eliminated && !b.eliminated) return 1;
@@ -1060,7 +1061,7 @@ const SurvivorLeague = () => {
                         const epScores = Array.from({length:TOTAL_WEEKS},(_,wi)=>({
                             ep: wi+1,
                             pts: (data.weeklyScores[wi+1]&&data.weeklyScores[wi+1][c.name]) || 0
-                        })).filter(e => e.pts !== 0 || (c.eliminatedWeek && e.ep <= c.eliminatedWeek) || (!c.eliminated && e.ep <= 6));
+                        })).filter(e => e.pts !== 0 || (c.eliminatedWeek && e.ep <= c.eliminatedWeek) || (!c.eliminated && e.ep <= episodesAired));
                         const aimedEps = epScores.filter(e=>e.pts!==0);
                         return (
                             <div key={i}>
@@ -1100,7 +1101,7 @@ const SurvivorLeague = () => {
                                                 const ep=wi+1;
                                                 const epPts=(data.weeklyScores[ep]&&data.weeklyScores[ep][c.name])||0;
                                                 const isElimEp = c.eliminatedWeek===ep;
-                                                const isFuture = ep > 6;
+                                                const isFuture = ep > episodesAired;
                                                 if (isFuture) return null;
                                                 if (c.eliminated && ep > c.eliminatedWeek) return null;
                                                 const cbState=(data.weeklyCheckboxStates[ep]&&data.weeklyCheckboxStates[ep][c.name])||{};
