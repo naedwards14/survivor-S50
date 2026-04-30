@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 37; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 38; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -475,8 +475,8 @@ const SurvivorLeague = () => {
                     "Angelina":0,"Aubry":1,"Q":0,"Colby":0,"Kyle":0,"Stephenie":1.5,"Genevieve":0,"Rizo":2
                 },
                 10: {
-                    "Rick":4.5,"Jenna":0,"Cirie":1.5,"Emily":1,"Christian":0,"Joe H":1,"Savannah":0,"Ozzy":4,
-                    "Tiffany":1,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":1,"Charlie":0,
+                    "Rick":2.5,"Jenna":0,"Cirie":1.5,"Emily":1,"Christian":0,"Joe H":1,"Savannah":0,"Ozzy":2,
+                    "Tiffany":3,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":1,"Charlie":0,
                     "Angelina":0,"Aubry":1.25,"Q":0,"Colby":0,"Kyle":0,"Stephenie":-0.5,"Genevieve":0,"Rizo":2
                 },
                 ...Object.fromEntries(Array.from({length:5},(_,i)=>[i+11, Object.fromEntries([
@@ -721,15 +721,15 @@ const SurvivorLeague = () => {
                     "Rizo":      { postmerge_survive:true, idol_tribal:true },
                 },
                 10: {
-                    "Rick":      { team_reward:true, team_immunity:true, mini_reward:true, idol_tribal:true, postmerge_survive:true },
+                    "Rick":      { mini_reward:true, idol_tribal:true, postmerge_survive:true },
                     "Jenna":     {},
                     "Cirie":     { postmerge_survive:true, advantage_held:true },
                     "Emily":     { postmerge_survive:true },
                     "Christian": {},
                     "Joe H":     { postmerge_survive:true },
                     "Savannah":  {},
-                    "Ozzy":      { individual_immunity:true, idol_tribal:true, postmerge_survive:true },
-                    "Tiffany":   { postmerge_survive:true },
+                    "Ozzy":      { idol_tribal:true, postmerge_survive:true },
+                    "Tiffany":   { individual_immunity:true, postmerge_survive:true },
                     "Chrissy":   {},
                     "Kamilla":   {},
                     "Dee":       {},
