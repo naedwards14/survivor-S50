@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 38; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 39; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -401,14 +401,14 @@ const SurvivorLeague = () => {
         return {
             contestants: [
                 // ── CILA (post-swap) ──
-                { name:"Rick",      tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
+                { name:"Rick",      tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
                 { name:"Jenna",     tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:1,    advantages:[] },
                 { name:"Cirie",     tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Extra Vote"] },
-                { name:"Emily",     tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Emily",     tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:11,   advantages:[] },
                 { name:"Christian", tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:9,    advantages:[] },
                 { name:"Joe H",     tribe:"Kalo",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
                 { name:"Savannah",  tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:2,    advantages:[] },
-                { name:"Ozzy",      tribe:"Vatu",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
+                { name:"Ozzy",      tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:11,   advantages:[] },
                 // ── KALO (post-swap) ──
                 { name:"Charlie",   tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:5,    advantages:[] },
                 { name:"Tiffany",   tribe:"Kalo",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
@@ -479,7 +479,12 @@ const SurvivorLeague = () => {
                     "Tiffany":3,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":1,"Charlie":0,
                     "Angelina":0,"Aubry":1.25,"Q":0,"Colby":0,"Kyle":0,"Stephenie":-0.5,"Genevieve":0,"Rizo":2
                 },
-                ...Object.fromEntries(Array.from({length:5},(_,i)=>[i+11, Object.fromEntries([
+                11: {
+                    "Rick":2.25,"Jenna":0,"Cirie":1,"Emily":-0.5,"Christian":0,"Joe H":1,"Savannah":0,"Ozzy":-3.5,
+                    "Tiffany":1,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":3,"Charlie":0,
+                    "Angelina":0,"Aubry":1,"Q":0,"Colby":0,"Kyle":0,"Stephenie":0,"Genevieve":0,"Rizo":2
+                },
+                ...Object.fromEntries(Array.from({length:4},(_,i)=>[i+12, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
                     "Tiffany","Chrissy","Kamilla","Dee","Coach","Mike","Jonathan","Charlie",
                     "Angelina","Aubry","Q","Colby","Kyle","Stephenie","Genevieve","Rizo"
@@ -746,7 +751,24 @@ const SurvivorLeague = () => {
                     "Genevieve": {},
                     "Rizo":      { idol_tribal:true, postmerge_survive:true },
                 },
-                ...Object.fromEntries(Array.from({length:5},(_,i)=>[i+11, Object.fromEntries([
+                11: {
+                    "Rick":      { uses_idol:true, title_quote:true, postmerge_survive:true },
+                    "Jenna":     {},
+                    "Cirie":     { postmerge_survive:true },
+                    "Emily":     { shot_in_dark:true },
+                    "Christian": {},
+                    "Joe H":     { postmerge_survive:true },
+                    "Savannah":  {},
+                    "Ozzy":      { voted_off_with_idol:true, shot_in_dark:true },
+                    "Tiffany":   { postmerge_survive:true },
+                    "Chrissy":   {}, "Kamilla":{}, "Dee":{}, "Coach":{}, "Mike":{},
+                    "Jonathan":  { individual_immunity:true, postmerge_survive:true },
+                    "Charlie":   {}, "Angelina":{},
+                    "Aubry":     { postmerge_survive:true },
+                    "Q":{}, "Colby":{}, "Kyle":{}, "Stephenie":{}, "Genevieve":{},
+                    "Rizo":      { idol_tribal:true, postmerge_survive:true },
+                },
+                ...Object.fromEntries(Array.from({length:4},(_,i)=>[i+12, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
                     "Tiffany","Chrissy","Kamilla","Dee","Coach","Mike","Jonathan","Charlie",
                     "Angelina","Aubry","Q","Colby","Kyle","Stephenie","Genevieve","Rizo"
@@ -795,6 +817,8 @@ const SurvivorLeague = () => {
                 { week:8, contestant:"Chrissy", reason:"13th person voted out, eliminated alongside Coach as part of Survivor's first ever paired elimination. Chrissy spent the episode as 'Dragonslayer whisperer,' trying to keep Coach calm, but Cirie masterfully shifted the target onto them. Cirie's line: 'When you gonna get Chrissy and Coach at one time?' proved decisive." },
                 { week:9, contestant:"Christian", reason:"14th person voted out. After a disastrous journey twist forced him to vote against himself and arrive at tribal with an extra vote already cast against him, Christian gave his Shot in the Dark to Jonathan as a show of trust. It backfired — Jonathan used it to his advantage as the tribal scramble ended with the majority targeting Christian." },
                 { week:10, contestant:"Stephenie", reason:"15th person voted out. With Coach and Chrissy gone, Stephenie found herself without her core alliance. She played her Shot in the Dark unsuccessfully at Tribal Council and was sent home, joining the jury. MrBeast guest-appeared this episode during a crossover with Beast Games." },
+                { week:11, contestant:"Emily", reason:"16th person voted out. Emily's close ally Christian was gone and she found herself in a difficult position. She played her Shot in the Dark unsuccessfully and was voted out in a double elimination alongside Ozzy." },
+                { week:11, contestant:"Ozzy", reason:"17th person voted out. Ozzy was voted out with his Boomerang Idol in his pocket — a costly mistake worth −3 points. He was also sent home via Shot in the Dark play (−0.5). Jonathan won individual immunity, sealing Ozzy and Emily's fate in a double elimination.", medical:false },
             ],
             winnerCircles: [
                 { season:49, first:"Dan",   second:"Alex",    third:"Jenny" },
@@ -1035,7 +1059,7 @@ const SurvivorLeague = () => {
             </div>
             <div className="summary-stats">
                 <div className="stat-card"><div className="stat-label">Current Season</div><div className="stat-value">50</div></div>
-                <div className="stat-card"><div className="stat-label">Episodes Aired</div><div className="stat-value">10/{TOTAL_WEEKS}</div></div>
+                <div className="stat-card"><div className="stat-label">Episodes Aired</div><div className="stat-value">11/{TOTAL_WEEKS}</div></div>
                 <div className="stat-card"><div className="stat-label">Cast Remaining</div><div className="stat-value">{data.contestants.filter(c=>!c.eliminated).length}</div></div>
                 <div className="stat-card"><div className="stat-label">League Players</div><div className="stat-value">{leaderboard.length}</div></div>
                 <div className="stat-card"><div className="stat-label">🏆 Current Leader</div><div className="stat-value" style={{color:'#D4A017'}}>{leaderboard[0]?.player || '—'}</div></div>
