@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 39; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 40; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -401,9 +401,9 @@ const SurvivorLeague = () => {
         return {
             contestants: [
                 // ── CILA (post-swap) ──
-                { name:"Rick",      tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Rick",      tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:12,   advantages:[] },
                 { name:"Jenna",     tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:1,    advantages:[] },
-                { name:"Cirie",     tribe:"Cila",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:["Extra Vote"] },
+                { name:"Cirie",     tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:12,   advantages:[] },
                 { name:"Emily",     tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:11,   advantages:[] },
                 { name:"Christian", tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:9,    advantages:[] },
                 { name:"Joe H",     tribe:"Kalo",       originalTribe:"Cila", eliminated:false, eliminatedWeek:null, advantages:[] },
@@ -484,7 +484,12 @@ const SurvivorLeague = () => {
                     "Tiffany":1,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":3,"Charlie":0,
                     "Angelina":0,"Aubry":1,"Q":0,"Colby":0,"Kyle":0,"Stephenie":0,"Genevieve":0,"Rizo":2
                 },
-                ...Object.fromEntries(Array.from({length:4},(_,i)=>[i+12, Object.fromEntries([
+                12: {
+                    "Rick":0,"Jenna":0,"Cirie":0.5,"Emily":0,"Christian":0,"Joe H":4.25,"Savannah":0,"Ozzy":0,
+                    "Tiffany":4,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":2,"Charlie":0,
+                    "Angelina":0,"Aubry":2,"Q":0,"Colby":0,"Kyle":0,"Stephenie":0,"Genevieve":0,"Rizo":4
+                },
+                ...Object.fromEntries(Array.from({length:3},(_,i)=>[i+13, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
                     "Tiffany","Chrissy","Kamilla","Dee","Coach","Mike","Jonathan","Charlie",
                     "Angelina","Aubry","Q","Colby","Kyle","Stephenie","Genevieve","Rizo"
@@ -768,7 +773,24 @@ const SurvivorLeague = () => {
                     "Q":{}, "Colby":{}, "Kyle":{}, "Stephenie":{}, "Genevieve":{},
                     "Rizo":      { idol_tribal:true, postmerge_survive:true },
                 },
-                ...Object.fromEntries(Array.from({length:4},(_,i)=>[i+12, Object.fromEntries([
+                12: {
+                    "Rick":      {},
+                    "Jenna":     {},
+                    "Cirie":     { postmerge_survive:true, shot_in_dark:true },
+                    "Emily":     {},
+                    "Christian": {},
+                    "Joe H":     { individual_immunity:true, team_reward:true, postmerge_survive:true, title_quote:true },
+                    "Savannah":  {},
+                    "Ozzy":      {},
+                    "Tiffany":   { individual_immunity:true, postmerge_survive:true },
+                    "Chrissy":{},"Kamilla":{},"Dee":{},"Coach":{},"Mike":{},
+                    "Jonathan":  { postmerge_survive:true },
+                    "Charlie":{},"Angelina":{},
+                    "Aubry":     { postmerge_survive:true },
+                    "Q":{},"Colby":{},"Kyle":{},"Stephenie":{},"Genevieve":{},
+                    "Rizo":      { idol_tribal:true, postmerge_survive:true },
+                },
+                ...Object.fromEntries(Array.from({length:3},(_,i)=>[i+13, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
                     "Tiffany","Chrissy","Kamilla","Dee","Coach","Mike","Jonathan","Charlie",
                     "Angelina","Aubry","Q","Colby","Kyle","Stephenie","Genevieve","Rizo"
@@ -796,10 +818,10 @@ const SurvivorLeague = () => {
                 { player:"Sue",          picks:["Dee","Joe H","Savannah","Colby","Kamilla","Mike"], left:0 },
             ],
             attendanceData: {
-                "Mel":[2,2,2,2,2,2,2,2,2,2],"Jenny":[2,2,2,2,2,2,2,2,2,2],"Shannon/Tyler":[2,2,2,2,2,2,2,2,2,2],"Dale":[2,2,2,2,2,2,2,2,2,2],"Jenn":[2,2,2,2,2,2,2,2,2,2],
-                "Neil":[2,2,2,2,2,2,2,2,2,2],"Dan":[2,2,2,2,2,2,2,2,2,2],"Julie":[2,2,2,2,2,2,2,2,2,2],"Alex":[2,2,2,2,2,2,2,2,2,2],"Gab":[2,2,2,2,2,2,2,2,2,2],
-                "Lindsay":[2,2,2,2,2,2,2,2,2,2],"Jack":[2,2,2,2,2,2,2,2,2,2],"Ryan":[2,2,2,2,2,2,2,2,2,2],"Brett/Emma":[2,2,2,2,2,2,2,2,2,2],"Debbie":[2,2,2,2,2,2,2,2,2,2],
-                "David":[2,2,2,2,2,2,2,2,2,2],"Jason":[2,2,2,2,2,2,2,2,2,2],"Charlie":[2,2,2,2,2,2,2,2,2,2],"Sue":[2,2,2,2,2,2,2,0,2,2]
+                "Mel":[2,2,2,2,2,2,2,2,2,2,2],"Jenny":[2,2,2,2,2,2,2,2,2,2,2],"Shannon/Tyler":[2,2,2,2,2,2,2,2,2,2,2],"Dale":[2,2,2,2,2,2,2,2,2,2,2],"Jenn":[2,2,2,2,2,2,2,2,2,2,2],
+                "Neil":[2,2,2,2,2,2,2,2,2,2,2],"Dan":[2,2,2,2,2,2,2,2,2,2,2],"Julie":[2,2,2,2,2,2,2,2,2,2,2],"Alex":[2,2,2,2,2,2,2,2,2,2,2],"Gab":[2,2,2,2,2,2,2,2,2,2,2],
+                "Lindsay":[2,2,2,2,2,2,2,2,2,2,2],"Jack":[2,2,2,2,2,2,2,2,2,2,2],"Ryan":[2,2,2,2,2,2,2,2,2,2,2],"Brett/Emma":[2,2,2,2,2,2,2,2,2,2,2],"Debbie":[2,2,2,2,2,2,2,2,2,2,2],
+                "David":[2,2,2,2,2,2,2,2,2,2,2],"Jason":[2,2,2,2,2,2,2,2,2,2,2],"Charlie":[2,2,2,2,2,2,2,2,2,2,2],"Sue":[2,2,2,2,2,2,2,0,2,2,2]
             },
             eliminationTimeline: [
                 { week:1, contestant:"Jenna", reason:"Voted out unanimously at Tribal Council. Cila lost the immunity challenge largely due to Cirie struggling with the monkey fist throw. Jenna had been gunning for Cirie before her sneakers were even sandy, which pushed Cirie and Ozzy to target her instead." },
@@ -819,6 +841,8 @@ const SurvivorLeague = () => {
                 { week:10, contestant:"Stephenie", reason:"15th person voted out. With Coach and Chrissy gone, Stephenie found herself without her core alliance. She played her Shot in the Dark unsuccessfully at Tribal Council and was sent home, joining the jury. MrBeast guest-appeared this episode during a crossover with Beast Games." },
                 { week:11, contestant:"Emily", reason:"16th person voted out. Emily's close ally Christian was gone and she found herself in a difficult position. She played her Shot in the Dark unsuccessfully and was voted out in a double elimination alongside Ozzy." },
                 { week:11, contestant:"Ozzy", reason:"17th person voted out. Ozzy was voted out with his Boomerang Idol in his pocket — a costly mistake worth −3 points. He was also sent home via Shot in the Dark play (−0.5). Jonathan won individual immunity, sealing Ozzy and Emily's fate in a double elimination.", medical:false },
+                { week:12, contestant:"Rick", reason:"18th person voted out in a double-elimination episode. Rick played his Shot in the Dark but was not safe, voted out unanimously 6-0 at the first Tribal Council. His fake idol theatrics earlier in the season couldn't save him in the end." },
+                { week:12, contestant:"Cirie", reason:"19th person voted out — Survivor's greatest player, finally snuffed. Cirie survived the first tribal but was voted out 4-2 at the second. Aubry said at the voting booth: 'You're the best Survivor player of all time. You're better than Sandra. You're better than Tony.' Cirie played her Shot in the Dark unsuccessfully." },
             ],
             winnerCircles: [
                 { season:49, first:"Dan",   second:"Alex",    third:"Jenny" },
@@ -1059,7 +1083,7 @@ const SurvivorLeague = () => {
             </div>
             <div className="summary-stats">
                 <div className="stat-card"><div className="stat-label">Current Season</div><div className="stat-value">50</div></div>
-                <div className="stat-card"><div className="stat-label">Episodes Aired</div><div className="stat-value">11/{TOTAL_WEEKS}</div></div>
+                <div className="stat-card"><div className="stat-label">Episodes Aired</div><div className="stat-value">12/{TOTAL_WEEKS}</div></div>
                 <div className="stat-card"><div className="stat-label">Cast Remaining</div><div className="stat-value">{data.contestants.filter(c=>!c.eliminated).length}</div></div>
                 <div className="stat-card"><div className="stat-label">League Players</div><div className="stat-value">{leaderboard.length}</div></div>
                 <div className="stat-card"><div className="stat-label">🏆 Current Leader</div><div className="stat-value" style={{color:'#D4A017'}}>{leaderboard[0]?.player || '—'}</div></div>
