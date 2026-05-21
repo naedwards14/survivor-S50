@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 40; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 41; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -411,7 +411,7 @@ const SurvivorLeague = () => {
                 { name:"Ozzy",      tribe:"Voted Out",  originalTribe:"Cila", eliminated:true,  eliminatedWeek:11,   advantages:[] },
                 // ── KALO (post-swap) ──
                 { name:"Charlie",   tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:5,    advantages:[] },
-                { name:"Tiffany",   tribe:"Kalo",       originalTribe:"Kalo", eliminated:false, eliminatedWeek:null, advantages:[] },
+                { name:"Tiffany",   tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:13,   advantages:[] },
                 { name:"Chrissy",   tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:8,    advantages:[] },
                 { name:"Kamilla",   tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:6,    advantages:[] },
                 { name:"Dee",       tribe:"Voted Out",  originalTribe:"Kalo", eliminated:true,  eliminatedWeek:7,    advantages:[] },
@@ -426,7 +426,7 @@ const SurvivorLeague = () => {
                 { name:"Kyle",      tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:1,    advantages:[] },
                 { name:"Stephenie", tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:10,   advantages:[] },
                 { name:"Genevieve", tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:6,    advantages:[] },
-                { name:"Rizo",      tribe:"Cila",       originalTribe:"Vatu", eliminated:false, eliminatedWeek:null, advantages:["Boomerang Idol"] },
+                { name:"Rizo",      tribe:"Voted Out",  originalTribe:"Vatu", eliminated:true,  eliminatedWeek:13,   advantages:[] },
             ],
             weeklyScores: {
                 1: {
@@ -489,7 +489,12 @@ const SurvivorLeague = () => {
                     "Tiffany":4,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":2,"Charlie":0,
                     "Angelina":0,"Aubry":2,"Q":0,"Colby":0,"Kyle":0,"Stephenie":0,"Genevieve":0,"Rizo":4
                 },
-                ...Object.fromEntries(Array.from({length:3},(_,i)=>[i+13, Object.fromEntries([
+                13: {
+                    "Rick":0,"Jenna":0,"Cirie":0,"Emily":0,"Christian":0,"Joe H":3,"Savannah":0,"Ozzy":0,
+                    "Tiffany":-0.5,"Chrissy":0,"Kamilla":0,"Dee":0,"Coach":0,"Mike":0,"Jonathan":7,"Charlie":0,
+                    "Angelina":0,"Aubry":16.5,"Q":0,"Colby":0,"Kyle":0,"Stephenie":0,"Genevieve":0,"Rizo":1.5
+                },
+                ...Object.fromEntries(Array.from({length:2},(_,i)=>[i+14, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
                     "Tiffany","Chrissy","Kamilla","Dee","Coach","Mike","Jonathan","Charlie",
                     "Angelina","Aubry","Q","Colby","Kyle","Stephenie","Genevieve","Rizo"
@@ -790,7 +795,19 @@ const SurvivorLeague = () => {
                     "Q":{},"Colby":{},"Kyle":{},"Stephenie":{},"Genevieve":{},
                     "Rizo":      { idol_tribal:true, postmerge_survive:true },
                 },
-                ...Object.fromEntries(Array.from({length:3},(_,i)=>[i+13, Object.fromEntries([
+                13: {
+                    "Rick":{},"Jenna":{},"Cirie":{},"Emily":{},"Christian":{},
+                    "Joe H":     { postmerge_survive:true, made_final:true },
+                    "Savannah":{},"Ozzy":{},
+                    "Tiffany":   { shot_in_dark:true },
+                    "Chrissy":{},"Kamilla":{},"Dee":{},"Coach":{},"Mike":{},
+                    "Jonathan":  { individual_reward:true, mini_reward:true, postmerge_survive:true, made_final:true, vote_in_final:true },
+                    "Charlie":{},"Angelina":{},
+                    "Aubry":     { individual_immunity:true, postmerge_survive:true, made_final:true, vote_in_final:true, won_survivor:true },
+                    "Q":{},"Colby":{},"Kyle":{},"Stephenie":{},"Genevieve":{},
+                    "Rizo":      { mini_reward:true, postmerge_survive:true },
+                },
+                ...Object.fromEntries(Array.from({length:2},(_,i)=>[i+14, Object.fromEntries([
                     "Rick","Jenna","Cirie","Emily","Christian","Joe H","Savannah","Ozzy",
                     "Tiffany","Chrissy","Kamilla","Dee","Coach","Mike","Jonathan","Charlie",
                     "Angelina","Aubry","Q","Colby","Kyle","Stephenie","Genevieve","Rizo"
@@ -843,18 +860,22 @@ const SurvivorLeague = () => {
                 { week:11, contestant:"Ozzy", reason:"17th person voted out. Ozzy was voted out with his Boomerang Idol in his pocket — a costly mistake worth −3 points. He was also sent home via Shot in the Dark play (−0.5). Jonathan won individual immunity, sealing Ozzy and Emily's fate in a double elimination.", medical:false },
                 { week:12, contestant:"Rick", reason:"18th person voted out in a double-elimination episode. Rick played his Shot in the Dark but was not safe, voted out unanimously 6-0 at the first Tribal Council. His fake idol theatrics earlier in the season couldn't save him in the end." },
                 { week:12, contestant:"Cirie", reason:"19th person voted out — Survivor's greatest player, finally snuffed. Cirie survived the first tribal but was voted out 4-2 at the second. Aubry said at the voting booth: 'You're the best Survivor player of all time. You're better than Sandra. You're better than Tony.' Cirie played her Shot in the Dark unsuccessfully." },
+                { week:13, contestant:"Tiffany", reason:"Eliminated in the finale. Played her Shot in the Dark unsuccessfully and was sent home from the Final 5." },
+                { week:13, contestant:"Rizo", reason:"Eliminated at the Final 4, just short of the Final Tribal Council. The Rizgod played the whole game with an idol and made it to the very end without ever needing to use it — but couldn't secure a spot in the final three." },
             ],
             winnerCircles: [
-                { season:49, first:"Dan",   second:"Alex",    third:"Jenny" },
-                { season:48, first:"Julie", second:"Jack",    third:"Gab" },
-                { season:47, first:"Ian",   second:"Neil",    third:"Julie" },
-                { season:46, first:"Julie", second:"Lindsay", third:"Jenn" },
-                { season:45, first:"Ryan",  second:"Ian",     third:null }
+                { season:50, first:"Aubry",  second:"Jonathan", third:"Joe H" },
+                { season:49, first:"Dan",    second:"Alex",     third:"Jenny" },
+                { season:48, first:"Julie",  second:"Jack",     third:"Gab" },
+                { season:47, first:"Ian",    second:"Neil",     third:"Julie" },
+                { season:46, first:"Julie",  second:"Lindsay",  third:"Jenn" },
+                { season:45, first:"Ryan",   second:"Ian",      third:null }
             ],
             surveyPoints: {
-                "Dan":0,"Julie":0,"Lindsay":0,"Brett/Emma":0,"Jack":0,
-                "Gab":0,"Neil":0,"Jenny":0,"David":0,"Sue":0,
-                "Ryan":0,"Jason":0,"Alex":0,"Debbie":0,"Jenn":0,"Mel":0
+                "Mel":3,"Jenny":4,"Shannon/Tyler":0,"Dale":1,"Jenn":0,
+                "Neil":9,"Dan":6,"Julie":9,"Alex":4,"Gab":1,
+                "Lindsay":2,"Jack":5,"Ryan":0,"Brett/Emma":0,"Debbie":4,
+                "David":3,"Jason":7,"Charlie":0,"Sue":1
             }
         };
     };
@@ -1083,7 +1104,7 @@ const SurvivorLeague = () => {
             </div>
             <div className="summary-stats">
                 <div className="stat-card"><div className="stat-label">Current Season</div><div className="stat-value">50</div></div>
-                <div className="stat-card"><div className="stat-label">Episodes Aired</div><div className="stat-value">12/{TOTAL_WEEKS}</div></div>
+                <div className="stat-card"><div className="stat-label">Episodes Aired</div><div className="stat-value">Finale</div></div>
                 <div className="stat-card"><div className="stat-label">Cast Remaining</div><div className="stat-value">{data.contestants.filter(c=>!c.eliminated).length}</div></div>
                 <div className="stat-card"><div className="stat-label">League Players</div><div className="stat-value">{leaderboard.length}</div></div>
                 <div className="stat-card"><div className="stat-label">🏆 Current Leader</div><div className="stat-value" style={{color:'#D4A017'}}>{leaderboard[0]?.player || '—'}</div></div>
