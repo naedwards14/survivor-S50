@@ -389,7 +389,7 @@ const SurvivorLeague = () => {
     const [expandedPlayer, setExpandedPlayer] = useState(null);
 
     const getInitialData = () => {
-        const DATA_VERSION = 41; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
+        const DATA_VERSION = 42; // Ep5 scores, Charlie+Angelina eliminated, attendance wks 4-5
         const savedVersion = localStorage.getItem('survivor50DataVersion');
         if (savedVersion != DATA_VERSION) {
             localStorage.removeItem('survivor50LeagueData');
@@ -864,7 +864,7 @@ const SurvivorLeague = () => {
                 { week:13, contestant:"Rizo", reason:"Eliminated at the Final 4, just short of the Final Tribal Council. The Rizgod played the whole game with an idol and made it to the very end without ever needing to use it — but couldn't secure a spot in the final three." },
             ],
             winnerCircles: [
-                { season:50, first:"Aubry",  second:"Jonathan", third:"Joe H" },
+                { season:50, first:"Neil",   second:"Alex",     third:"Jenny" },
                 { season:49, first:"Dan",    second:"Alex",     third:"Jenny" },
                 { season:48, first:"Julie",  second:"Jack",     third:"Gab" },
                 { season:47, first:"Ian",    second:"Neil",     third:"Julie" },
